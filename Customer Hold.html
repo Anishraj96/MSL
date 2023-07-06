@@ -1,0 +1,75 @@
+<html>
+<title>Customer Hold</title>
+<center>
+<h2>Customer Hold</h2>
+<input type="text" id="userInput" placeholder="Enter Shipment Number">
+<button onclick="fillField(),fillField1()">Apply</button>&nbsp;&nbsp;<button onclick="copyText1()">Copy Subject</button>&nbsp;&nbsp;<button onclick="copyText2()">Copy Draft</button>&nbsp;<button class="button" onclick = "locationreload()">Clear</button></center> 
+<p id="field">Your Manifest on HOLD – [placeholder] </p>
+<p id="field1">
+Dear Customer,
+
+We would like to keep you updated on your booking [placeholder] where we are in receipt of your shipping instruction but are not able to manifest due to system challenge.
+However, we are working on having this resolved on priority and send you draft as per your shipping instruction soon.
+We will keep you updated on your booking if we are not able to send out a draft to you in next 24 hours.
+
+Regards.
+Maersk</p>
+
+
+
+
+
+<script>
+function fillField() {
+  const userInput = document.getElementById("userInput").value;
+  const field = document.getElementById("field");
+  const filledText = field.innerHTML.replace(/\[placeholder\]/g, userInput);
+  field.innerHTML = filledText;
+}
+
+function fillField1() {
+  const userInput = document.getElementById("userInput").value;
+  const field = document.getElementById("field1");
+  const filledText = field.innerHTML.replace(/\[placeholder\]/g, userInput);
+  field.innerHTML = filledText;
+}
+function copyText1() {
+  const field = document.getElementById("field");
+  const textToCopy = field.innerHTML;
+
+  const textarea = document.createElement("textarea");
+  textarea.value = textToCopy;
+  document.body.appendChild(textarea);
+
+  textarea.select();
+  textarea.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+
+  document.body.removeChild(textarea);
+}
+
+function copyText2() {
+  const field1 = document.getElementById("field1");
+  const textToCopy = field1.innerHTML;
+
+  const textarea = document.createElement("textarea");
+  textarea.value = textToCopy;
+  document.body.appendChild(textarea);
+
+  textarea.select();
+  textarea.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+
+  document.body.removeChild(textarea);
+}
+
+</script>
+<script>
+            function locationreload() {
+                location.reload();
+                 
+        }
+        </script>
+		
+
+</html>
