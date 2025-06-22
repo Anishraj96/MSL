@@ -50,7 +50,7 @@
   <div class="card">
     <h2>Employee Info</h2>
     
-    <input type="text" id="name" placeholder="Enter Employee Name" />
+    <input type="text" id="emp" placeholder="Enter Employee Name" />
     
     <select id="gender">
       <option value="" disabled selected>Select Gender</option>
@@ -66,11 +66,11 @@
 
   <script>
     function generateEmployeeID() {
-      const name = document.getElementById('name').value.trim();
+      const emp = document.getElementById('emp').value.trim();
       const gender = document.getElementById('gender').value;
       
-      if (!name || !gender) {
-        alert("Please enter name and select gender.");
+      if (!emp || !gender) {
+        alert("Please enter emp and select gender.");
         return;
       }
 
