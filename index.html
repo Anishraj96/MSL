@@ -76,7 +76,7 @@
 
       const empId = "EMP" + Math.floor(1000 + Math.random() * 9000); // 4-digit random ID
       const result = `
-       <strong>Employee ID:</strong> ${empId}
+       <strong>Employee ID:</strong> <strong>${empId}</strong>
       `;
 
       document.getElementById('result').innerHTML = result;
