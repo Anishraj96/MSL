@@ -78,20 +78,20 @@
         border-radius: 5px;
         cursor: pointer;
         font-weight: 600;
-        margin-left: 10px;
+        margin-left: 8px;
     }
 
     button.secondary {
         background-color: #6b7280;
     }
 
-    button.secondary:hover {
-        background-color: #4b5563;
+    button.danger {
+        background-color: #dc2626;
     }
 
-    button:hover {
-        background-color: #1e40af;
-    }
+    button.secondary:hover { background-color: #4b5563; }
+    button.danger:hover { background-color: #b91c1c; }
+    button:hover { background-color: #1e40af; }
 
     .success {
         color: #059669;
@@ -102,17 +102,15 @@
 </style>
 
 <script>
+    const contactBlock = "\n**TEL:763-405-0296\nFAX:612-304-3113";
+
     function connectText() {
         const t1 = document.getElementById("box1").value.trim();
         const t2 = document.getElementById("box2").value.trim();
 
-        const result =
-            t1 +
-            "\n---\n" +
-            "SHIPPING MARKS\n" +
-            t2;
+        document.getElementById("output").value =
+            t1 + "\n---\nSHIPPING MARKS\n" + t2;
 
-        document.getElementById("output").value = result;
         document.getElementById("copiedMsg").style.display = "none";
     }
 
@@ -125,12 +123,22 @@
     }
 
     function appendContact() {
-        const contactText = "\n**TEL:763-405-0296\nFAX:612-304-3113";
         const output = document.getElementById("output");
-
         if (!output.value.includes("TEL:763-405-0296")) {
-            output.value += contactText;
+            output.value += contactBlock;
         }
+    }
+
+    function deleteContact() {
+        const output = document.getElementById("output");
+        output.value = output.value.replace(contactBlock, "").trim();
+    }
+
+    function clearAll() {
+        document.getElementById("box1").value = "";
+        document.getElementById("box2").value = "";
+        document.getElementById("output").value = "";
+        document.getElementById("copiedMsg").style.display = "none";
     }
 </script>
 </head>
@@ -143,12 +151,14 @@
     <div class="top-container">
         <div class="field">
             <label>Shipment Reference</label>
-            <textarea id="box1" placeholder="Enter shipment details..." onkeyup="connectText()"></textarea>
+            <textarea id="box1" onkeyup="connectText()"
+                placeholder="Enter shipment details..."></textarea>
         </div>
 
         <div class="field">
             <label>Marks & Numbers</label>
-            <textarea id="box2" placeholder="Enter marks and carton details..." onkeyup="connectText()"></textarea>
+            <textarea id="box2" onkeyup="connectText()"
+                placeholder="Enter marks and carton details..."></textarea>
         </div>
     </div>
 
@@ -157,7 +167,9 @@
         <textarea id="output" readonly></textarea>
 
         <div class="actions">
-            <button class="secondary" onclick="appendContact()">Add Contact Details</button>
+            <button class="secondary" onclick="appendContact()">Add Contact</button>
+            <button class="secondary" onclick="deleteContact()">Delete Contact</button>
+            <button class="danger" onclick="clearAll()">Clear All</button>
             <button onclick="copyText()">Copy Output</button>
         </div>
 
@@ -169,4 +181,3 @@
 
 </body>
 </html>
-
