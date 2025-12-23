@@ -1,88 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employee ID Generator</title>
-  <style>
+<meta charset="UTF-8">
+<title>Shipping Marks Generator</title>
+
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f4f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 0;
     }
 
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 320px;
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .card h2 {
-      margin-bottom: 20px;
-      text-align: center;
+    .header {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #1f2937;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 10px;
     }
 
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
+    .top-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
     }
 
-    .output {
-      margin-top: 20px;
-      background: #e9f5ff;
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
+    .field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #374151;
     }
-  </style>
+
+    textarea {
+        width: 100%;
+        height: 200px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        resize: none;
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+    }
+
+    .bottom-container {
+        margin-top: 30px;
+    }
+
+    .actions {
+        margin-top: 15px;
+        text-align: right;
+    }
+
+    button {
+        background-color: #2563eb;
+        color: #ffffff;
+        border: none;
+        padding: 10px 22px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    button:hover {
+        background-color: #1e40af;
+    }
+
+    .success {
+        color: #059669;
+        font-size: 13px;
+        margin-top: 10px;
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .top-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    function connectText() {
+        const t1 = document.getElementById("box1").value.trim();
+        const t2 = document.getElementById("box2").value.trim();
+
+        const result =
+            t1 +
+            "\n---\n" +
+            "SHIPPING MARKS\n" +
+            t2;
+
+        document.getElementById("output").value = result;
+        document.getElementById("copiedMsg").style.display = "none";
+    }
+
+    function copyText() {
+        const output = document.getElementById("output");
+        output.select();
+        output.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+
+        document.getElementById("copiedMsg").style.display = "block";
+    }
+</script>
 </head>
+
 <body>
 
-  <div class="card">
-    <h2>Employee Info</h2>
-    
-    <input type="text" id="emp" placeholder="Enter Employee Name" />
-    
-    <select id="gender">
-      <option value="" disabled selected>Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
+<div class="container">
+    <div class="header">Shipping Marks Generator</div>
 
-    <button onclick="generateEmployeeID()">Generate ID</button>
+    <div class="top-container">
+        <div class="field">
+            <label>Shipment Reference</label>
+            <textarea id="box1" placeholder="Enter shipment details..." onkeyup="connectText()"></textarea>
+        </div>
 
-    <div class="output" id="result" style="display: none;"></div>
-  </div>
+        <div class="field">
+            <label>Marks & Numbers</label>
+            <textarea id="box2" placeholder="Enter marks and carton details..." onkeyup="connectText()"></textarea>
+        </div>
+    </div>
 
-  <script>
-    function generateEmployeeID() {
-      const emp = document.getElementById('emp').value.trim();
-      const gender = document.getElementById('gender').value;
-      
-      if (!emp || !gender) {
-        alert("Please enter emp and select gender.");
-        return;
-      }
+    <div class="bottom-container field">
+        <label>Generated Output</label>
+        <textarea id="output" readonly></textarea>
 
-      const empId = "EMP" + Math.floor(1000 + Math.random() * 9000); // 4-digit random ID
-      const result = `
-       <strong>Employee ID:</strong> <strong>${empId}</strong>
-      `;
+        <div class="actions">
+            <button onclick="copyText()">Copy Output</button>
+        </div>
 
-      document.getElementById('result').innerHTML = result;
-      document.getElementById('result').style.display = "block";
-    }
-  </script>
+        <div class="success" id="copiedMsg">
+            ✔ Output copied to clipboard
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
