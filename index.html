@@ -73,11 +73,20 @@
         background-color: #2563eb;
         color: #ffffff;
         border: none;
-        padding: 10px 22px;
+        padding: 10px 18px;
         font-size: 14px;
         border-radius: 5px;
         cursor: pointer;
         font-weight: 600;
+        margin-left: 10px;
+    }
+
+    button.secondary {
+        background-color: #6b7280;
+    }
+
+    button.secondary:hover {
+        background-color: #4b5563;
     }
 
     button:hover {
@@ -89,12 +98,6 @@
         font-size: 13px;
         margin-top: 10px;
         display: none;
-    }
-
-    @media (max-width: 768px) {
-        .top-container {
-            grid-template-columns: 1fr;
-        }
     }
 </style>
 
@@ -118,8 +121,16 @@
         output.select();
         output.setSelectionRange(0, 99999);
         document.execCommand("copy");
-
         document.getElementById("copiedMsg").style.display = "block";
+    }
+
+    function appendContact() {
+        const contactText = "\nTEL:763-405-0296\nFAX:612-304-3113";
+        const output = document.getElementById("output");
+
+        if (!output.value.includes("TEL:763-405-0296")) {
+            output.value += contactText;
+        }
     }
 </script>
 </head>
@@ -146,6 +157,7 @@
         <textarea id="output" readonly></textarea>
 
         <div class="actions">
+            <button class="secondary" onclick="appendContact()">Add Contact Details</button>
             <button onclick="copyText()">Copy Output</button>
         </div>
 
